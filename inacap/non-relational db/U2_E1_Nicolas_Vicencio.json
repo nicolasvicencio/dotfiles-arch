@@ -1,0 +1,16 @@
+use ex2
+
+db.pasaje.insert({codPasaje: 1, runPasajero: '19065824-4', origen: 'Buin', destino: 'Santiago', numAsiento: 27, valor: 5000})
+
+db.pasaje.insert({codPasaje: 2, runPasajero: '19065824-4', origen: 'Santiago', destino: 'Viña del mar', numAsiento: 26, valor: 10000})
+
+db.pasaje.save({codPasaje: 3, runPasajero: '2005824-4', origen: 'Rancagua', destino: 'Viña del mar', numAsiento: 10, valor: 20000 })
+
+db.pasaje.save({codPasaje: 4, runPasajero: '98765432-4', origen: 'Santiago', destino: 'Rancagua', numAsiento: 15, valor: 10000 })
+
+db.pasaje.insertOne({codPasaje: 5, runPasajero: '98723432-4', origen: 'Buin', destino: 'Rancagua', numAsiento: 8, valor: 7000 })
+
+db.pasaje.insertOne({codPasaje: 6, runPasajero: '98723432-7', origen: 'Buin', destino: 'Rancagua', numAsiento: 9, valor: 7000 })
+
+db.pasaje.insertMany([{codPasaje: 7, runPasajero: '12723432-7', origen: 'Linderos', destino: 'Buin', numAsiento: 5, valor: 3000 },{codPasaje: 8, runPasajero: '30723432-7', origen: 'Buin', destino: 'Rancagua', numAsiento: 20, valor: 7000 }])
+
