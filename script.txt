@@ -1,1 +1,0 @@
-sudo pacman -S audacity cheese kitty redshift visual-studio-code-bin android-studio rofi zsh
