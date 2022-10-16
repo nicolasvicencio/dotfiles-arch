@@ -1,0 +1,128 @@
+use actividad2
+
+db.p_covid.insertMany([
+	{
+		rut: "10065824-1",
+		nombre: "Nicolas Vicencio",
+		correo: "nicolas.vicencio@gmail.com",
+		fecha: new Date("2022, 10 , 25"),
+		contacto_e: [
+			{
+				rut_contacto_e: "20645978-5",
+				fecha_c: new Date("2022, 09, 29")
+			}
+		]
+
+	},
+	{
+		rut: "10065824-2",
+		nombre: "Miguelito",
+		correo: "miguelito@gmail.com",
+		fecha: new Date("2022, 7 , 25"),
+		contacto_e: [
+			{
+				rut_contacto_e: "20645978-5",
+				fecha_c: new Date("2022, 09, 29")
+			}
+		]
+
+	},
+	{
+		rut: "10065824-3",
+		nombre: "Bombo Fica",
+		correo: "Bombito@gmail.com",
+		fecha: new Date("2021, 6 , 25"),
+		contacto_e: [
+			{
+				rut_contacto_e: "20645978-5",
+				fecha_c: new Date("2022, 09, 29")
+			}
+		]
+	},
+	{
+		rut: "10065824-4",
+		nombre: "Lucas Espinoza",
+		correo: "L.Espinoza@gmail.com",
+		fecha: new Date("2021, 11 , 25"),
+		contacto_e: [
+			{
+				rut_contacto_e: "20645978-5",
+				fecha_c: new Date("2022, 09, 29")
+			}
+		]
+	},
+	{
+		rut: "10065824-5",
+		nombre: "Ignacio Socias",
+		correo: "I.Socias@gmail.com",
+		fecha: new Date("2021, 12 , 25"),
+		contacto_e: [
+			{
+				rut_contacto_e: "20645978-5",
+				fecha_c: new Date("2022, 09, 29")
+			}
+		]
+	},
+	{
+		rut: "10065824-6",
+		nombre: "Baki Hanma",
+		correo: "hanma.baki@gmail.com",
+		fecha: new Date("2022, 01 , 25"),
+		contacto_e: [
+			{
+				rut_contacto_e: "20645978-5",
+				fecha_c: new Date("2022, 09, 29")
+			}
+		]
+	},
+	{
+		rut: "10065824-7",
+		nombre: "Ronnie Coleman",
+		correo: "MrOlympia@gmail.com",
+		fecha: new Date("2022, 02 , 25"),
+		contacto_e: [
+			{
+				rut_contacto_e: "20645978-5",
+				fecha_c: new Date("2022, 09, 29")
+			}
+		]
+	},
+	{
+		rut: "10065824-8",
+		nombre: "Tom Platz",
+		correo: "squatisthebest@gmail.com",
+		fecha: new Date("2022, 03 , 25"),
+		contacto_e: [
+			{
+				rut_contacto_e: "20645978-5",
+				fecha_c: new Date("2022, 09, 29")
+			}
+		]
+	},
+	{
+		rut: "10065824-9",
+		nombre: "Angelo Mori",
+		correo: "KruDeus@gmail.com",
+		fecha: new Date("2022, 04 , 25"),
+		contacto_e: [
+			{
+				rut_contacto_e: "20645978-5",
+				fecha_c: new Date("2022, 09, 29")
+			}
+		]
+	},
+	{
+		rut: "10065824-k",
+		nombre: "Wawito",
+		correo: "Wawitobb@gmail.com",
+		fecha: new Date("2022, 05 , 25"),
+		contacto_e: [
+			{
+				rut_contacto_e: "20645978-5",
+				fecha_c: new Date("2022, 09, 29")
+			}
+		]
+	},
+]);
+
+db.p_covid.find().pretty()

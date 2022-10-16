@@ -1,0 +1,337 @@
+use actividad1
+
+db.receta.insertMany([
+	{
+		codReceta: "RC1",
+		nombreReceta: "Empanada de Pino",
+		Valor: 2000,
+		tiempoPreparacion: "1:00",
+		chefEspecialistas:[
+			{
+				runChef: "19065824-4",
+				nombreChef: "Nicolas Vicencio"
+			},
+			{
+				runChef: "18065824-4",
+				nombreChef: "Michael Jordan"
+			}
+		],
+		ingredientes: [
+			{
+				nombreIngrediente: "Carne",
+				gramajeRequerido: 500,
+				observacionIngrediente: "Carne de vacuno"
+			},
+			{
+				nombreIngrediente: "Cebolla",
+				gramajeRequerido: 300,
+				observacionIngrediente: "Cebolla cortada en brunoa"
+			},
+			{
+				nombreIngrediente: "Huevo",
+				gramajeRequerido: 100,
+				observacionIngrediente: "Huevo Hervido"
+			}
+		]
+
+	},
+	{
+		codReceta: "RC2",
+		nombreReceta: "Humitas",
+		Valor: 1000,
+		tiempoPreparacion: "1:00",
+		chefEspecialistas:[
+			{
+				runChef: "19065824-6",
+				nombreChef: "Nicolas Vicentico"
+			},
+			{
+				runChef: "18065824-4",
+				nombreChef: "Michael Jackson"
+			}
+		],
+		ingredientes: [
+			{
+				nombreIngrediente: "Choclo",
+				gramajeRequerido: 1000,
+				observacionIngrediente: "Choclo maduro"
+			},
+			{
+				nombreIngrediente: "Albahca",
+				gramajeRequerido: 50,
+				observacionIngrediente: "Para condimentar la pastelera"
+			},
+			{
+				nombreIngrediente: "Tomate",
+				gramajeRequerido: 500,
+				observacionIngrediente: "Acompañamiento"
+			}
+		]
+	},
+	{
+		codReceta: "RC3",
+		nombreReceta: "Anticucho",
+		Valor: 1000,
+		tiempoPreparacion: "0:30",
+		chefEspecialistas:[
+			{
+				runChef: "19065824-6",
+				nombreChef: "Nicolas Vicentico"
+			},
+			{
+				runChef: "18065824-4",
+				nombreChef: "Michael Scofield"
+			}
+		],
+		ingredientes: [
+			{
+				nombreIngrediente: "Carne ",
+				gramajeRequerido: 500,
+				observacionIngrediente: "Carne de vacuno"
+			},
+			{
+				nombreIngrediente: "pollo",
+				gramajeRequerido: 500,
+				observacionIngrediente: "Pechuga de pollo"
+			},
+			{
+				nombreIngrediente: "Pimentones",
+				gramajeRequerido: 300,
+				observacionIngrediente: "Acompañamiento"
+			}
+		]
+	},
+	{
+		codReceta: "RC4",
+		nombreReceta: "Pastel de Papa",
+		Valor: 2500,
+		tiempoPreparacion: "1:30",
+		chefEspecialistas:[
+			{
+				runChef: "19065824-6",
+				nombreChef: "Nicolas Vicentico"
+			},
+			{
+				runChef: "18065824-4",
+				nombreChef: "Gordon Ramsey"
+			}
+		],
+		ingredientes: [
+			{
+				nombreIngrediente: "Papa",
+				gramajeRequerido: 1000,
+				observacionIngrediente: "Hacer pure de papa"
+			},
+			{
+				nombreIngrediente: "Carne",
+				gramajeRequerido: 500,
+				observacionIngrediente: "Carne de vacuno"
+			},
+			{
+				nombreIngrediente: "Cebolla",
+				gramajeRequerido: 300,
+				observacionIngrediente: "Para hacer el pino"
+			}
+		]
+	},
+	{
+		codReceta: "RC5",
+		nombreReceta: "Pastel de Choclo",
+		Valor: 2500,
+		tiempoPreparacion: "1:30",
+		chefEspecialistas:[
+			{
+				runChef: "19065824-6",
+				nombreChef: "Nicolas Vicentico"
+			},
+			{
+				runChef: "18065824-4",
+				nombreChef: "Walter White"
+			}
+		],
+		ingredientes: [
+			{
+				nombreIngrediente: "Choclo",
+				gramajeRequerido: 1000,
+				observacionIngrediente: "Hacer pastelera"
+			},
+			{
+				nombreIngrediente: "Carne",
+				gramajeRequerido: 500,
+				observacionIngrediente: "Carne de vacuno"
+			},
+			{
+				nombreIngrediente: "Cebolla",
+				gramajeRequerido: 300,
+				observacionIngrediente: "Para hacer el pino"
+			}
+		]
+	},
+	{
+		codReceta: "RC6",
+		nombreReceta: "Completo Italiano",
+		Valor: 1000,
+		tiempoPreparacion: "0:30",
+		chefEspecialistas:[
+			{
+				runChef: "19065824-6",
+				nombreChef: "Nicolas Vicentico"
+			},
+			{
+				runChef: "18065824-4",
+				nombreChef: "Gabriel Boric"
+			}
+		],
+		ingredientes: [
+			{
+				nombreIngrediente: "Vianesa",
+				gramajeRequerido: 400,
+				observacionIngrediente: "Vianesa sureña"
+			},
+			{
+				nombreIngrediente: "Palta",
+				gramajeRequerido: 500,
+				observacionIngrediente: "Palta natural"
+			},
+			{
+				nombreIngrediente: "Tomate",
+				gramajeRequerido: 300,
+				observacionIngrediente: "Tomate cortado en brunua"
+			}
+		]
+	},
+	{
+		codReceta: "RC7",
+		nombreReceta: "Fajita",
+		Valor: 2000,
+		tiempoPreparacion: "0:30",
+		chefEspecialistas:[
+			{
+				runChef: "19065824-6",
+				nombreChef: "Nicolas Vicentico"
+			},
+			{
+				runChef: "18065824-4",
+				nombreChef: "Sebastian Piñera"
+			}
+		],
+		ingredientes: [
+			{
+				nombreIngrediente: "Carne",
+				gramajeRequerido: 400,
+				observacionIngrediente: "Carne de vacuno"
+			},
+			{
+				nombreIngrediente: "Palta",
+				gramajeRequerido: 500,
+				observacionIngrediente: "Palta natural"
+			},
+			{
+				nombreIngrediente: "Tomate",
+				gramajeRequerido: 300,
+				observacionIngrediente: "Tomate cortado en brunua"
+			}
+		]
+	},
+	{
+		codReceta: "RC8",
+		nombreReceta: "Te Con Leche de soja",
+		Valor: 2000,
+		tiempoPreparacion: "0:10",
+		chefEspecialistas:[
+			{
+				runChef: "19065824-6",
+				nombreChef: "Nicolas Vicentico"
+			},
+			{
+				runChef: "18065824-4",
+				nombreChef: "Kim Yong Hum"
+			}
+		],
+		ingredientes: [
+			{
+				nombreIngrediente: "Leche de Soja",
+				gramajeRequerido: 400,
+				observacionIngrediente: "Leche de soja hidrolizada"
+			},
+			{
+				nombreIngrediente: "Azucar",
+				gramajeRequerido: 500,
+				observacionIngrediente: "Azucar morena"
+			},
+			{
+				nombreIngrediente: "Te verde",
+				gramajeRequerido: 300,
+				observacionIngrediente: "Hojas de te verde"
+			}
+		]
+	},
+	{
+		codReceta: "RC9",
+		nombreReceta: "Sandwich aliado",
+		Valor: 2000,
+		tiempoPreparacion: "0:10",
+		chefEspecialistas:[
+			{
+				runChef: "19065824-6",
+				nombreChef: "Nicolas Vicentico"
+			},
+			{
+				runChef: "18065824-4",
+				nombreChef: "Kim Yong Hum"
+			}
+		],
+		ingredientes: [
+			{
+				nombreIngrediente: "Pan",
+				gramajeRequerido: 400,
+				observacionIngrediente: "Pan frica"
+			},
+			{
+				nombreIngrediente: "Queso",
+				gramajeRequerido: 500,
+				observacionIngrediente: "Queso gauda"
+			},
+			{
+				nombreIngrediente: "Jamon",
+				gramajeRequerido: 300,
+				observacionIngrediente: "Jamon de pavo"
+			}
+		]
+	},
+	{
+		codReceta: "RC10",
+		nombreReceta: "Pollo krispy",
+		Valor: 2000,
+		tiempoPreparacion: "0:10",
+		chefEspecialistas:[
+			{
+				runChef: "19065824-6",
+				nombreChef: "Nicolas Vicentico"
+			},
+			{
+				runChef: "18065824-4",
+				nombreChef: "Kim Yong Hum"
+			}
+		],
+		ingredientes: [
+			{
+				nombreIngrediente: "Pollo",
+				gramajeRequerido: 400,
+				observacionIngrediente: "Pechuga de pollo"
+			},
+			{
+				nombreIngrediente: "Merken",
+				gramajeRequerido: 500,
+				observacionIngrediente: "Condimentar el pollo"
+			},
+			{
+				nombreIngrediente: "Pan Rallado",
+				gramajeRequerido: 300,
+				observacionIngrediente: "Pan rallado para la cobertura"
+			}
+		]
+	}
+]);
+
+db.receta.find().pretty()
