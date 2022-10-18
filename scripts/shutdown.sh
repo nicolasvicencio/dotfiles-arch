@@ -1,15 +1,15 @@
 #!/bin/bash
 
 
-if date +"%R" === 20:22  
+if date +"%R" == "20:40"  
 then
  notify-send -u critical "this is a notification test"
 fi
 
-if date +"%R" === 23:50 
+if date +"%R" == "23:50" 
 then
   notify-send -u critical "This pc is gonna shutdown in ten minutes, make sure to save your work done babe"
-
+fi
 fireup()
 {  
   while :; do
