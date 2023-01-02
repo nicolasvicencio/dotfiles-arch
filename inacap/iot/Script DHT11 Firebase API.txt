@@ -1,0 +1,261 @@
+#include <SPI.h>
+#include <Ethernet.h>
+#include <OneWire.h> 
+
+int DS18S20_Pin = 2;
+OneWire ds(DS18S20_Pin);  // on digital pin 2
+
+// Registrar la Mac para su proyecto.
+// Ingrese la MAC de su shell, para obtenerla, puede acceder a: Archivo->Ejemplos->Ethernet->DhcpAdressPrinter.
+byte mac[] = { 0x00, 0xAA, 0xBB, 0xCC, 0xDE, 0x02 };
+char serverName[] = "10.58.0.151";    // name address of your domain
+
+// Esta IP se asignará en caso de que el DHCP falle en asignar la ip al servidor
+IPAddress ip(192,168,0,177);
+int serverPort = 80;
+EthernetClient client;
+int totalCount = 0;
+char pageAdd[64];
+
+char tempString[] = "00.00";
+
+// Setea el delay en milisegundos.
+// 5 segundos.
+#define delayMillis 5000UL
+
+unsigned long thisMillis = 0;
+unsigned long lastMillis = 0;
+
+//DEFINIR DATOS SENSORES DHT11
+// Incluimos librería
+#include <DHT.h>
+ 
+// Definimos el pin digital donde se conecta el sensor
+#define DHTPIN 7
+// Dependiendo del tipo de sensor
+#define DHTTYPE DHT11
+ 
+// Inicializamos el sensor DHT11
+DHT dht(DHTPIN, DHTTYPE);
+
+void setup() {
+  Serial.begin(9600);
+
+ 
+  // Comenzamos el sensor DHT
+  dht.begin();
+  //////////////////////////
+
+  
+  // disable SD SPI
+  pinMode(4,OUTPUT);
+  digitalWrite(4,HIGH);
+
+  // Iniciar ethernet
+  Serial.println(F("Conectando a ethernet..."));
+  if (Ethernet.begin(mac) == 0) {
+    Serial.println("Falla en la configuración de DHCP");
+
+    Ethernet.begin(mac, ip);
+  }
+
+  digitalWrite(10,HIGH);
+
+  Serial.println(Ethernet.localIP());
+
+  delay(2000);
+  Serial.println(F("Listo"));
+}
+
+void loop()
+{  
+  thisMillis = millis();
+
+  if(thisMillis - lastMillis > delayMillis)
+  {
+    lastMillis = thisMillis;
+
+//LLamar método para obtener datos de humedad
+    getHumedad();
+//LLamar método para obtener datos de temperatura C    
+    getTemperatura();
+//LLamar método para obtener datos de temperatura F
+    getFahren();
+  }    
+}
+
+//Caputra de temperatura C en DHT11
+void getTemperatura(){
+   //Lectura en Celsius 
+    float t = dht.readTemperature();
+
+    Serial.println("Temperatura C:");
+    //Al método ftoa, se le envía el arreglo llamado tempString, el valor del sensor, cantidad de decimales
+    Serial.println(ftoa(tempString,t,2));
+    //Se envian los datos a las API creadas en el servidor, asegurandose de que los datos sean los mismos que recibirá la página php
+    //en la variable $arduino_data = $_GET['data_temperatura']; por ejemplo.
+    sprintf(pageAdd,"/arduino/firebaseTemperatura.php?data_temperatura=%s",ftoa(tempString,t,2));
+
+    if(!getPage(serverName,serverPort,pageAdd)) Serial.print(F("Falla"));
+    else Serial.print(F("OK "));
+    totalCount++;
+    Serial.println(totalCount,DEC);
+
+    }
+
+void getHumedad(){
+
+    //Lectura del sensor de humedad.
+    float h = dht.readHumidity();
+    Serial.print("Humedad: ");
+    //Al método ftoa, se le envía el arreglo llamado tempString, el valor del sensor, cantidad de decimales
+    Serial.println(ftoa(tempString,h,2));
+    sprintf(pageAdd,"/arduino/firebaseHumedad.php?data_humedad=%s",ftoa(tempString,h,2));
+    
+    if(!getPage(serverName,serverPort,pageAdd)) Serial.print(F("Fail "));
+    else Serial.print(F("Pass "));
+    totalCount++;
+    Serial.println(totalCount,DEC);
+
+}
+
+void getFahren(){
+
+  // Leemos la temperatura en grados Fahrenheit
+    float f = dht.readTemperature(true);
+
+    Serial.println("Temperatura F:");
+    //Al método ftoa, se le envía el arreglo llamado tempString, el valor del sensor, cantidad de decimales
+    Serial.println(ftoa(tempString,f,2));
+    //Se envian los datos a las API creadas en el servidor, asegurandose de que los datos sean los mismos que recibirá la página php
+    //en la variable $arduino_data = $_GET['data_temperatura']; por ejemplo.
+    sprintf(pageAdd,"/arduino/firebaseFahrenheit.php?data_fahren=%s",ftoa(tempString,f,2));
+
+    if(!getPage(serverName,serverPort,pageAdd)) Serial.print(F("Fail "));
+    else Serial.print(F("Pass "));
+    totalCount++;
+    Serial.println(totalCount,DEC);
+
+  }
+
+//Método que obiene la dirección de la página en la API que permite enviar los datos.
+byte getPage(char *ipBuf,int thisPort, char *page)
+{
+  int inChar;
+  char outBuf[128];
+
+  Serial.print(F("Conectando..."));
+
+  if(client.connect(ipBuf,thisPort))
+  {
+    Serial.println(F("Conectado"));
+
+    sprintf(outBuf,"GET %s HTTP/1.1",page);
+    client.println(outBuf);
+    sprintf(outBuf,"Host: %s",serverName);
+    client.println(outBuf);
+    client.println(F("Connection: close\r\n"));
+  } 
+  else
+  {
+    Serial.println(F("failed"));
+    return 0;
+  }
+
+  // Este loop controla si el hardware de desconecta
+  int connectLoop = 0;
+
+  while(client.connected())
+  {
+    while(client.available())
+    {
+      inChar = client.read();
+      Serial.write(inChar);
+      // Si hay nuevos paquetes, se reinicia el contador
+      connectLoop = 0;
+    }
+
+    connectLoop++;
+
+    // si el loop tiene más de 10 segundos.
+    if(connectLoop > 10000)
+    {
+      // Entonces cierra la conección por tiempo.
+      Serial.println();
+      Serial.println(F("Timeout"));
+      client.stop();
+    }
+    
+    delay(1);
+  }
+
+  Serial.println();
+
+  Serial.println(F("Desconectado."));
+
+  client.stop();
+
+  return 1;
+}
+
+//Código en desuso (Te puede servir para obtener datos de otros sensores ;).
+//float getTemp(){
+//  //returns the temperature from one DS18S20 in DEG Celsius
+//
+//  byte data[12];
+//  byte addr[8];
+//
+//  if ( !ds.search(addr)) {
+//      //no more sensors on chain, reset search
+//      ds.reset_search();
+//      return -1000;
+//  }
+//
+//  if ( OneWire::crc8( addr, 7) != addr[7]) {
+//      Serial.println("CRC is not valid!");
+//      return -1000;
+//  }
+//
+//  if ( addr[0] != 0x10 && addr[0] != 0x28) {
+//      Serial.print("Device is not recognized");
+//      return -1000;
+//  }
+//
+//  ds.reset();
+//  ds.select(addr);
+//  ds.write(0x44,1); // start conversion, with parasite power on at the end
+//
+//  byte present = ds.reset();
+//  ds.select(addr);    
+//  ds.write(0xBE); // Read Scratchpad
+//
+//  for (int i = 0; i < 9; i++) { // we need 9 bytes
+//    data[i] = ds.read();
+//  }
+//
+//  ds.reset_search();
+//
+//  byte MSB = data[1];
+//  byte LSB = data[0];
+//
+//  float tempRead = ((MSB << 8) | LSB); //using two's compliment
+//  float TemperatureSum = tempRead / 16;
+//
+//  return TemperatureSum;
+//
+//}
+//Fin código en desuso
+
+//Este código permite convertir los valores del sensor a string para su interpretación como valor al ser enviado a la API en PHP.
+char *ftoa(char *a, double f, int precision)
+{
+  long p[] = {0,10,100,1000,10000,100000,1000000,10000000,100000000};  
+  char *ret = a;
+  long heiltal = (long)f;
+  itoa(heiltal, a, 10);
+  while (*a != '\0') a++;
+  *a++ = '.';
+  long desimal = abs((long)((f - heiltal) * p[precision]));
+  itoa(desimal, a, 10);
+  return ret;
+}
